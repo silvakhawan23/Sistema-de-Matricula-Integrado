@@ -8,8 +8,7 @@ Bem-vindo ao Portal de Matrículas do Instituto Federal de Mato Grosso (IFMT)! E
 Para realizar sua matrícula, siga estes passos:
 
 Na página inicial, clique no botão "Realizar Matrícula".
-Siga as instruções fornecidas na tela para preencher o formulário de matrícula.
-Após concluir o processo, você receberá um número de matrícula para acessar a Central do Aluno.
+Siga as instruções fornecidas na tela para preencher o formulário de matrícula. Após concluir o processo, Aguarde que sua matrcula sendo finalizada você recebera seu numeor de matricula para acessar a Central do Aluno.
 
 2. Acesso à Central do Aluno:
 
