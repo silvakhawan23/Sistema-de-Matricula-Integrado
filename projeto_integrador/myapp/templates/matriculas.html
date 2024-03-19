@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>IFMT - Sistema Acadêmico</title>
+    <style>
+        body {
+            background-image: linear-gradient(to bottom, #00843D, #005328);
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        header {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 0 0 10px 10px;
+        }
+        header h1 {
+            margin-bottom: 10px;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+            color: #000;
+        }
+        .form-control {
+            color: #000;
+        }
+        .btn-primary {
+            background-color: #00843D;
+            border: none;
+            width: 100%;
+        }
+        .btn-primary:hover {
+            background-color: #00692E;
+        }
+        .d-flex {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-center">IFMT - Sistema Acadêmico</h1>
+    <header>
+        <img src="{% static 'logo.png' %}" alt="IFMT Logo" class="img-fluid" width="500" height="100">
+        <a class="btn btn-sm btn-light text-success ml-auto" href='/logout'>Sair</a>
+    </header>
+    
+    
+
+{% for aprovado in aprovados %}
+<div class="container mt-3">
+    <div class="row g-3">
+        <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Aprovado: {{ aprovado.name }}</label>
+        </div>  
+        <div class="col-md-6">
+            <label for="inputAddress" class="form-label">CPF: {{ aprovado.cpf }}</label>
+        </div>
+        <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Curso: {{ aprovado.curso }}</label>
+        </div>
+        <div class="col-md-6">
+            <label for="inputAddress" class="form-label">Situação: {% if aprovado.cpf in cpfs_cadastrados %}<p style="display: inline;" class='text-warning'>Cadastrado</p>{% else %} <p style="display: inline;" class='text-danger'>Não cadastrado</p>{% endif %}</label>
+        </div>
+    </div>   
+    <p>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseExample{{ forloop.counter }}">
+          Verificar Cadastro
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample{{ forloop.counter }}">
+        <div class="card card-body">
+            {% if aprovado.cpf in cpfs_cadastrados %}
+                {% for cadastro in cadastros %}
+                    {% if aprovado.cpf == cadastro.aprovados.cpf %}
+                        <div class="container">
+                            <form class="row g-3" method="POST" enctype="multipart/form-data">                        
+                                {% csrf_token %}
+                                <div class="col-md-6">
+                                    <label for="inputEmail" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" name="nome" value="{{ aprovado.name }}" readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputAddress" class="form-label">Ultima Escola</label>
+                                    <input type="text" class="form-control" name="escola" value="{{ cadastro.escola }}" readonly>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputAddress2" class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" value="{{ cadastro.email }}"  readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputCity" class="form-label">CPF</label>
+                                    <input type="text" class="form-control" name="cpf" value="{{ cadastro.aprovados.cpf }}" readonly>
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="inputState" class="form-label">Curso Escolhido no Edital</label>
+                                    <input type="text" class="form-control" name="curso" value="{{ aprovado.curso }}" readonly>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="nascimento" class="form-label">Data de nascimento</label>
+                                    <input type="text" class="form-control" name="nascimento" value="{{ cadastro.nascimento }}"readonly>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputAddress" class="form-label">Endereço</label>
+                                    <input type="text" class="form-control" name="endereco" value="{{ cadastro.endereco }}"  readonly>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputAddress" class="form-label">Arquivo:</label>
+                                    <a href="{{ cadastro.arquivo.url }}" download>{{ cadastro.arquivo.name }}</a>
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-primary">APROVAR MATRICULA</button>
+                                </div>
+                            </form>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p class="text-danger">Não Cadastrado</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>

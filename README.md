@@ -8,7 +8,7 @@
 # Sistema de Matriculas Integrado
 
 
-<img src="sistema.jpg" width="150px">
+<img src="/img/sistema.jpg" width="150px">
 
 <!-- Substitua o seguinte parágrafo por um resumo do seu projeto: -->
 Considerando a maneira precária como os cadastros e matrículas dos aprovados no IFMT são atualmente realizados, neste projeto será possível para o administrador visualizar os aprovados e aqueles que já foram matriculados conforme o cadastro realizado. Além disso, o sistema terá redirecionamento para todos os principais sites do Instituto Federal, como o AVA, SUAP, EduPage e os editais, com o objetivo de concentrar esses redirecionamentos em um único local.
@@ -22,4 +22,4 @@ Considerando a maneira precária como os cadastros e matrículas dos aprovados n
 
 |  |  |
 |:-------------:|:------------------------------------------------------------:|
-|  <img src="eu.jpeg" width="150px"></br> **Khawan Fellipe Magalhães da Silva** | Atualmente, sou aluno do curso de Engenharia da Computação no Instituto Federal de Mato Grosso. Durante dois anos, participei de um grupo de desenvolvimento de pesquisas conhecido como Programa de Educação e Tutorial, onde trabalhei em inúmeros projetos na área de robótica e programação. Além disso, tive a oportunidade de publicar um artigo na Escola Regional de Informática de Mato Grosso (ERI). Atualmente, estou finalizando um curso de 6 meses que integra Python com HTML, CSS e Django.
+|  <img src="/img/eu.jpegeu.jpeg" width="150px"></br> **Khawan Fellipe Magalhães da Silva** | Atualmente, sou aluno do curso de Engenharia da Computação no Instituto Federal de Mato Grosso. Durante dois anos, participei de um grupo de desenvolvimento de pesquisas conhecido como Programa de Educação e Tutorial, onde trabalhei em inúmeros projetos na área de robótica e programação. Além disso, tive a oportunidade de publicar um artigo na Escola Regional de Informática de Mato Grosso (ERI). Atualmente, estou finalizando um curso de 6 meses que integra Python com HTML, CSS e Django.
