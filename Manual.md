@@ -1,5 +1,5 @@
 
-anual do Usuário - Portal de Matrículas IFMT
+Manual do Usuário - Portal de Matrículas IFMT
 
 Bem-vindo ao Portal de Matrículas do Instituto Federal de Mato Grosso (IFMT)! Este manual foi criado para orientá-lo sobre como utilizar nosso sistema de forma eficaz. Aqui, você encontrará informações sobre como realizar sua matrícula, acessar a Central do Aluno, utilizar a funcionalidade de Administração e explorar outros recursos úteis disponíveis em nosso portal.
 
@@ -10,6 +10,7 @@ Para realizar sua matrícula, siga estes passos:
 Na página inicial, clique no botão "Realizar Matrícula".
 Siga as instruções fornecidas na tela para preencher o formulário de matrícula.
 Após concluir o processo, você receberá um número de matrícula para acessar a Central do Aluno.
+
 2. Acesso à Central do Aluno:
 
 Para acessar a Central do Aluno e obter informações sobre sua matrícula, siga estes passos:
@@ -17,6 +18,7 @@ Para acessar a Central do Aluno e obter informações sobre sua matrícula, siga
 Após receber o número de matrícula, clique no botão "Central do Aluno" na página inicial.
 Você será redirecionado para o Sistema Unificado de Administração Pública (SUAP).
 Faça login utilizando seu número de matrícula e senha fornecidos pelo IFMT.
+
 3. Acesso Administrativo:
 
 Para acessar a funcionalidade administrativa e verificar o status dos alunos aprovados em editais, siga estes passos:
