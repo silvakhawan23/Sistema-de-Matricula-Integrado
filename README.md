@@ -14,8 +14,8 @@
 Considerando a maneira precária como os cadastros e matrículas dos aprovados no IFMT são atualmente realizados, neste projeto será possível para o administrador visualizar os aprovados e aqueles que já foram matriculados conforme o cadastro realizado. Além disso, o sistema terá redirecionamento para todos os principais sites do Instituto Federal, como o AVA, SUAP, EduPage e os editais, com o objetivo de concentrar esses redirecionamentos em um único local.
 ## Documentação
 
-* [Documentação (para desenvolvedores)](DOCUMENTACAO.md)
-* [Manual (para usuários)](MANUAL.md)
+* [Documentação (para desenvolvedores)](Documentação.md)
+* [Manual (para usuários)](Manual.md)
 
 
 
