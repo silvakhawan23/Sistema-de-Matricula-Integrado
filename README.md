@@ -17,9 +17,9 @@ Considerando a maneira precária como os cadastros e matrículas dos aprovados n
 * [Documentação (para desenvolvedores)](DOCUMENTACAO.md)
 * [Manual (para usuários)](MANUAL.md)
 
-## Sobre o autor
 
-<!-- Coloque seu nome, uma foto sua e uma pequena bio sobre você na seguinte tabela: -->
+
+
 |  |  |
 |:-------------:|:------------------------------------------------------------:|
-|  <img src="img/profilepic.png" width="150px"></br> **Nome do Autor** | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. |
+|  <img src="eu.jpeg" width="150px"></br> **Khawan Fellipe Magalhães da Silva** | Atualmente, sou aluno do curso de Engenharia da Computação no Instituto Federal de Mato Grosso. Durante dois anos, participei de um grupo de desenvolvimento de pesquisas conhecido como Programa de Educação e Tutorial, onde trabalhei em inúmeros projetos na área de robótica e programação. Além disso, tive a oportunidade de publicar um artigo na Escola Regional de Informática de Mato Grosso (ERI). Atualmente, estou finalizando um curso de 6 meses que integra Python com HTML, CSS e Django.
