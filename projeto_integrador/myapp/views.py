@@ -109,7 +109,36 @@ def cadastro_view(request):
 
         
 def CentralAluno_view(request):
-    return render(request,'CentralAluno.html')
+    from django.shortcuts import render, redirect
+from .models import Aprovado, Cadastro
+
+def CentralAluno_view(request):
+    cpf = request.session.get('cpf_validado')
+
+    if not cpf:
+        return redirect('/ValidacaoAluno')  # se alguém tentar acessar direto
+
+    try:
+        aprovado = Aprovado.objects.get(cpf=cpf)
+        cadastro = Cadastro.objects.get(aprovados=aprovado)
+
+        context = {
+            "nome": aprovado.name,
+            "cpf":aprovado.cpf,
+            "curso": aprovado.curso,
+            "email": cadastro.email,
+            "escola": cadastro.escola,
+            "nascimento": cadastro.nascimento,
+            "endereco": cadastro.endereco,
+            "cidade": cadastro.cidade,
+            "arquivo_url": cadastro.arquivo.url if cadastro.arquivo else None
+        }
+
+        return render(request, 'CentralAluno.html', context)
+
+    except (Aprovado.DoesNotExist, Cadastro.DoesNotExist):
+        return redirect('/ValidacaoAluno')  # fallback se algo estiver errado
+
 
 
 def ValidacaoAluno_view(request):
