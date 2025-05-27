@@ -2,34 +2,54 @@
 ![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)  
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 
-**Este projeto foi desenvolvido como atividade final do curso de capacitação em Python da Cyber Edux, realizado de setembro de 2023 até março de 2024. Para mais informações, consulte o [enunciado](ENUNCIADO.md).**
+# 🧾 Sistema de Matrículas Integrado
 
-# Sistema de Matrículas Integrado
-
-<img src="/img/sistema.jpg" width="150px">
-
-Este sistema foi criado com o objetivo de modernizar o processo de cadastro e matrícula dos aprovados no Instituto Federal de Mato Grosso (IFMT), que atualmente é feito de forma manual e pouco eficiente.
-
-## Funcionalidades
-
-- Cadastro e validação de documentos dos aprovados
-- Visualização dos alunos matriculados
-- Área administrativa para gestão dos cadastros
-- Redirecionamento rápido para os principais sistemas do IFMT, como:
-  - AVA
-  - SUAP
-  - EduPage
-  - Editais
-
-Dessa forma, o sistema centraliza as informações e facilita o acesso tanto para alunos quanto para a administração.
-
-## Documentação
-
-* [Documentação (para desenvolvedores)](Documentação.md)
-* [Manual (para usuários)](Manual.md)
+**Este projeto foi desenvolvido como atividade final do curso de capacitação em Python da Cyber Edux, realizado entre setembro de 2023 e março de 2024.**  
+📎 Confira o [enunciado oficial](ENUNCIADO.md) do projeto.
 
 ---
 
-|  |  |
-|:-------------:|:------------------------------------------------------------:|
-| <img src="/img/eu.jpeg" width="150px"><br> **Khawan Fellipe Magalhães da Silva** | Aluno de Engenharia da Computação no Instituto Federal de Mato Grosso. Atuei por dois anos no Programa de Educação Tutorial (PET), desenvolvendo projetos em robótica e programação. Tenho um artigo publicado na Escola Regional de Informática de Mato Grosso (ERI) e estou finalizando um curso de 6 meses focado em Python, HTML, CSS e Django. |
+## 📌 Descrição do Projeto
+
+O **Sistema de Matrículas Integrado** tem como objetivo **centralizar e modernizar** o processo de matrícula de alunos aprovados no Instituto Federal de Mato Grosso (IFMT), substituindo o método manual atual por uma plataforma simples, rápida e eficiente.
+
+A proposta principal é facilitar a vida do administrador e do aluno por meio de um painel que permite:
+
+- ✅ Visualizar candidatos aprovados
+- ✅ Gerenciar matrículas confirmadas
+- ✅ Redirecionar usuários para os principais sistemas do IFMT
+
+<img src="/img/sistema.jpg" width="200px">
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Linguagem:** Python 3.x  
+- **Framework:** Django  
+- **Banco de Dados:** SQLite  
+- **Frontend:** HTML5, CSS3 (integrado via Django templates)
+
+---
+
+## 🔗 Funcionalidades
+
+- 📋 **Cadastro e visualização de aprovados**
+- 🧾 **Controle de matrícula**
+- 🛡️ **Login administrativo**
+- 🧭 **Redirecionamentos integrados**:
+  - AVA
+  - SUAP
+  - EduPage
+  - Editais do IFMT
+
+---
+
+## 📁 Documentação
+
+- [📚 Manual do Usuário](Manual.md) – orientações práticas para o uso da plataforma  
+- [🛠️ Documentação Técnica](Documentação.md) – instruções de instalação e manutenção do sistema
+
+---
+
+
