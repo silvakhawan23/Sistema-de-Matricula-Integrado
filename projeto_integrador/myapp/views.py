@@ -106,3 +106,37 @@ def cadastro_view(request):
             return HttpResponseBadRequest("Nenhum registro aprovado encontrado com o CPF validado.")
     else:
         return HttpResponseBadRequest("Todos os campos obrigatórios devem ser preenchidos.")
+
+        
+def CentralAluno_view(request):
+    return render(request,'CentralAluno.html')
+
+
+def ValidacaoAluno_view(request):
+    if request.method == "GET":
+        return render(request, 'ValidacaoAluno.html', {"aprovado": False})
+    
+    elif request.method == "POST":
+        cpf = request.POST.get('cpf')
+        print("CPF recebido:", cpf)
+
+        try:
+            aprovado = Aprovado.objects.get(cpf=cpf)
+
+            # Verifica se há um Cadastro vinculado a esse Aprovado
+            if Cadastro.objects.filter(aprovados=aprovado).exists():
+                # Salva na sessão os dados
+                request.session['cpf_validado'] = cpf
+                request.session['nome_aprovado'] = aprovado.name
+                request.session['curso_aprovado'] = aprovado.curso
+                return redirect("/CentralAluno")
+            else:
+                # Está aprovado, mas ainda não fez matrícula
+                return render(request, 'ValidacaoAluno.html', {"aprovado": True, "erro": "Aluno aprovado, mas ainda não realizou matrícula."})
+
+        except Aprovado.DoesNotExist:
+            # CPF não está nem aprovado
+            return render(request, 'ValidacaoAluno.html', {"aprovado": True, "erro": "CPF não encontrado na lista de aprovados."})
+    
+    else:
+        return HttpResponseBadRequest()

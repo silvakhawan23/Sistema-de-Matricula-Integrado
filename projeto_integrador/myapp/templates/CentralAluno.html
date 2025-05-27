@@ -1,0 +1,399 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Portal do Aluno - IFMT</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <style>
+    :root {
+      --ifmt-green-dark: #174a29;
+      --ifmt-green: #20613c;
+      --ifmt-green-light: #297a4b;
+      --ifmt-accent: #b0ffb5;
+      --ifmt-accent-light: #eaffd0;
+      --ifmt-bg: #f5f7f6;
+      --ifmt-border: #e0e4e2;
+      --ifmt-gray: #666;
+      --ifmt-yellow: #fff7d1;
+    }
+    body {
+      margin: 0;
+      background: var(--ifmt-bg);
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: var(--ifmt-green-dark);
+    }
+    .navbar {
+      background: linear-gradient(90deg, var(--ifmt-green-dark), var(--ifmt-green), var(--ifmt-green-light));
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      color: white;
+      justify-content: space-between;
+    }
+    .navbar .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .navbar .logo {
+      width: 38px;
+      height: 38px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--ifmt-green);
+      font-size: 1.2rem;
+    }
+    .navbar nav {
+      display: flex;
+      gap: 32px;
+    }
+    .navbar nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      transition: border 0.2s, color 0.2s;
+    }
+    .navbar nav a.active, .navbar nav a:hover {
+      border-bottom: 2px solid var(--ifmt-accent);
+      color: var(--ifmt-accent);
+    }
+    .navbar .user {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+    }
+    .navbar .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #eee;
+    }
+    /* Main Layout */
+    .main-content {
+      max-width: 1200px;
+      margin: 32px auto 0 auto;
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .col {
+      flex: 1 1 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      min-width: 300px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 16px rgba(23,74,41,0.05);
+      border: 1px solid var(--ifmt-border);
+      padding: 28px 24px;
+      margin: 0;
+    }
+    /* Personal Data Card */
+    .profile-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .profile-pic {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #d7ece0;
+      margin-bottom: 8px;
+    }
+    .change-photo {
+      color: var(--ifmt-green);
+      font-size: 0.95rem;
+      cursor: pointer;
+      text-decoration: underline;
+      margin-bottom: 14px;
+    }
+    .personal-data label {
+      font-size: 0.94rem;
+      color: var(--ifmt-gray);
+      font-weight: 500;
+      margin-bottom: -2px;
+    }
+    .personal-data .value {
+      font-size: 1.08rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    /* Course Info Card */
+    .course-info .status {
+      color: #30c76b;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .course-info .status svg {
+      width: 18px;
+      height: 18px;
+    }
+    /* Calendar */
+    .calendar-events {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .calendar-event {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: #f7faf8;
+      border-radius: 8px;
+      padding: 7px 14px;
+      margin-bottom: 2px;
+      font-size: 1rem;
+    }
+    .calendar-event .date {
+      min-width: 44px;
+      text-align: center;
+      background: var(--ifmt-green-light);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 7px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 4px 0;
+      font-size: 0.99rem;
+      margin-right: 7px;
+    }
+    .calendar-event .date .month {
+      font-size: 0.81em;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .calendar-event .date .day {
+      font-size: 1.2em;
+      font-weight: 700;
+    }
+    /* Recent Activities */
+    .recent-activities .activity {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 0;
+      font-size: 1rem;
+    }
+    .recent-activities .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .recent-activities .dot.green { background: #30c76b; }
+    .recent-activities .dot.yellow { background: #e7c253; }
+    /* Documents */
+    .documents-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .doc-btn {
+      border: 1.5px solid var(--ifmt-green-light);
+      background: #f7faf8;
+      border-radius: 11px;
+      padding: 18px 8px;
+      text-align: center;
+      font-size: 1.05rem;
+      color: var(--ifmt-green-dark);
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .doc-btn:active, .doc-btn:hover {
+      background: var(--ifmt-green-light);
+      color: #fff;
+    }
+    .doc-btn.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: #eee;
+      color: #bbb;
+      border-style: dashed;
+    }
+    /* Alerts */
+    .alert-card {
+      background: var(--ifmt-yellow);
+      border-radius: 10px;
+      padding: 16px 14px;
+      border: 1px solid #fae59a;
+      color: #bfa200;
+      font-size: 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .alert-card svg {
+      width: 22px;
+      height: 22px;
+      flex-shrink: 0;
+    }
+    @media (max-width: 900px) {
+      .main-content {
+        flex-direction: column;
+        gap: 0;
+      }
+      .col {
+        min-width: unset;
+        margin-bottom: 18px;
+      }
+    }
+    @media (max-width: 600px) {
+      .main-content {
+        padding: 0 2px;
+      }
+      .card {
+        padding: 16px 7px;
+      }
+      .navbar {
+        padding: 0 7px;
+      }
+      .documents-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo-area">
+      <div class="logo">IFMT</div>
+      <span style="font-weight:600;font-size:1.12rem;">Portal do Aluno</span>
+    </div>
+    <nav>
+      <a href="#" class="">Início</a>
+      <a href="#" class="">Matrícula</a>
+      <a href="#" class="active">Meus Dados</a>
+      <a href="#">Documentos</a>
+      <a href="#">Notificações</a>
+    </nav>
+    <div class="user">
+      <img src="{% static 'perfil.jpeg' %}" alt="Avatar" class="avatar">
+      João Silva
+    </div>
+  </div>
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Col 1: Dados Pessoais -->
+    <div class="col">
+      <div class="card">
+        <div class="profile-header">
+          <img src="{% static 'perfil.jpeg' %}" alt="Foto de Perfil" class="profile-pic">
+          <div class="change-photo">✎ Alterar foto</div>
+        </div>
+        <div class="personal-data">
+          <label>Nome Completo</label>
+          <div class="value">João Pedro Silva Santos</div>
+          <label>Matrícula</label>
+          <div class="value">2023001234</div>
+          <label>CPF</label>
+          <div class="value">123.456.789-00</div>
+          <label>Data de Nascimento</label>
+          <div class="value">15/03/2000</div>
+          <label>E-mail Institucional</label>
+          <div class="value">joao.silva@aluno.ifmt.edu.br</div>
+          <label>Telefone</label>
+          <div class="value">(65) 99999-9999</div>
+        </div>
+      </div>
+    </div>
+    <!-- Col 2: Curso + Calendário -->
+    <div class="col">
+      <div class="card course-info">
+        <h2 style="font-size:1.25rem; margin-top:0;">Informações do Curso</h2>
+        <div style="margin-bottom:12px;">
+          <div style="font-weight:500;">Campus</div>
+          <div style="margin-bottom:7px;">Cuiabá - Campus Central</div>
+          <div style="font-weight:500;">Curso</div>
+          <div style="margin-bottom:7px;">Tecnologia em Análise e Desenvolvimento de Sistemas</div>
+          <div style="font-weight:500;">Período Atual</div>
+          <div style="margin-bottom:7px;">4º Semestre</div>
+          <div style="font-weight:500;">Status da Matrícula</div>
+          <div class="status">
+            <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#30c76b"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Regular
+          </div>
+          <div style="font-weight:500;margin-top:7px;">Coeficiente de Rendimento</div>
+          <div style="margin-bottom:7px;">8.7</div>
+          <div style="font-weight:500;">Data de Ingresso</div>
+          <div><b>01/02/2022</b></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2 style="font-size:1.18rem; margin-top:0;">Calendário Acadêmico</h2>
+        <div class="calendar-events">
+          <div class="calendar-event">
+            <div class="date">
+              <span class="month">MAR</span>
+              <span class="day">15</span>
+            </div>
+            Início das Aulas<br>
+            <span style="color:var(--ifmt-gray);font-size:0.95em;">1º Semestre 2024</span>
+          </div>
+          <div class="calendar-event">
+            <div class="date">
+              <span class="month">ABR</span>
+              <span class="day">10</span>
+            </div>
+            Prazo para Trancamento<br>
+            <span style="color:var(--ifmt-gray);font-size:0.95em;">Período Regular</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Col 3: Atividades + Documentos + Alertas -->
+    <div class="col">
+      <div class="card recent-activities">
+        <h2 style="font-size:1.11rem; margin-top:0;">Atividades Recentes</h2>
+        <div class="activity"><span class="dot green"></span> Matrícula Realizada <span style="margin-left:auto;color:#888;font-size:0.95em;">10/03/2024</span></div>
+        <div class="activity"><span class="dot green"></span> Atualização de Dados <span style="margin-left:auto;color:#888;font-size:0.95em;">05/03/2024</span></div>
+        <div class="activity"><span class="dot yellow"></span> Solicitação de Histórico <span style="margin-left:auto;color:#888;font-size:0.95em;">01/03/2024</span></div>
+      </div>
+      <div class="card">
+        <h2 style="font-size:1.11rem; margin-top:0;">Meus Documentos</h2>
+        <div class="documents-list">
+          <div class="doc-btn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#eaffd0"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#174a29" stroke-width="1.7" stroke-linecap="round"/></svg>Histórico</div>
+          <div class="doc-btn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#eaffd0"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#174a29" stroke-width="1.7" stroke-linecap="round"/></svg>Declaração</div>
+          <div class="doc-btn"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#eaffd0"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#174a29" stroke-width="1.7" stroke-linecap="round"/></svg>Grade</div>
+          <div class="doc-btn disabled"><svg width="28" height="28" fill="none" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#f0f0f0"/><path d="M7 8h10M7 12h10M7 16h6" stroke="#bbb" stroke-width="1.7" stroke-linecap="round"/></svg>Atestado</div>
+        </div>
+      </div>
+      <div class="alert-card">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="12" fill="#fae59a"/><path d="M12 7v5M12 16h.01" stroke="#bfa200" stroke-width="2" stroke-linecap="round"/></svg>
+        <div>
+          <b>Atualização Pendente</b><br>
+          <span>Atualize seus dados cadastrais para o próximo semestre</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
