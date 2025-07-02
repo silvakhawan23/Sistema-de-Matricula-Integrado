@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Editar Perfil</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        .btn { background-color:rgb(26, 141, 55); color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .btn:hover { background-color:rgb(13, 82, 7); }
+        .readonly { background-color:rgb(198, 202, 200); }
+    </style>
+</head>
+<body>
+    <h2>Editar Perfil</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" value="{{ aprovado.name }}" class="readonly" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label>CPF:</label>
+            <input type="text" value="{{ aprovado.cpf }}" class="readonly" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label>Curso:</label>
+            <input type="text" value="{{ aprovado.curso }}" class="readonly" readonly>
+        </div>
+        
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ cadastro.email }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Telefone:</label>
+            <input type="text" name="telefone" value="{{ cadastro.telefone }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Escola:</label>
+            <input type="text" name="escola" value="{{ cadastro.escola }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Endereço:</label>
+            <input type="text" name="endereco" value="{{ cadastro.endereco }}" required>
+        </div>
+        
+        <div class="form-group">
+            <label>Cidade:</label>
+            <input type="text" name="cidade" value="{{ cadastro.cidade }}" required>
+        </div>
+        
+        <button type="submit" class="btn">Salvar Alterações</button>
+        <a href="/CentralAluno" class="btn" style="background-color: #6c757d; text-decoration: none; margin-left: 10px;">Cancelar</a>
+    </form>
+</body>
+</html>

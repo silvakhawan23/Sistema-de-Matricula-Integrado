@@ -289,10 +289,9 @@
       <span style="font-weight:600;font-size:1.12rem;">Portal do Aluno</span>
     </div>
     <nav>
-      <a href="#" class="">Início</a>
-      <a href="#" class="">Matrícula</a>
-      <a href="#" class="active">Meus Dados</a>
-      <a href="#">Documentos</a>
+      <a class="nav-link" href="/feed">Inicio</a>
+      <a href="/editar-perfil/" class="btn btn-primary">Editar Perfil</a>
+      <a href="/download-comprovante/" class="btn btn-success">Download Comprovante</a>
       <a href="#">Notificações</a>
     </nav>
     <div class="user">
@@ -313,7 +312,7 @@
           <label>Nome Completo</label>
           <div class="value">{{nome}}</div>
           <label>Matrícula</label>
-          <div class="value">2023001234</div>
+          <div class="value">{{matricula}}</div>
           <label>CPF</label>
           <div class="value">{{cpf}}</div>
           <label>Data de Nascimento</label>
@@ -321,7 +320,7 @@
           <label>E-mail Institucional</label>
           <div class="value">{{email}}</div>
           <label>Telefone</label>
-          <div class="value">(65) 99999-9999</div>
+          <div class="value">{{telefone}}</div>
         </div>
       </div>
     </div>
@@ -332,19 +331,19 @@
         <div style="margin-bottom:12px;">
           <div style="font-weight:500;">Campus</div>
           <div style="margin-bottom:7px;">Cuiabá - Campus Central</div>
-          <div style="font-weight:500;">Curso</div>
-          <div style="margin-bottom:7px;">Tecnologia em Análise e Desenvolvimento de Sistemas</div>
+          <label>Curso</label>
+          <div class="value" style="margin-bottom:7px;">{{curso}}</div>
           <div style="font-weight:500;">Período Atual</div>
-          <div style="margin-bottom:7px;">4º Semestre</div>
+          <div style="margin-bottom:7px;">1º Semestre</div>
           <div style="font-weight:500;">Status da Matrícula</div>
           <div class="status">
             <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="10" fill="#30c76b"/><path d="M6 10.5l2.5 2.5L14 7.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Regular
           </div>
           <div style="font-weight:500;margin-top:7px;">Coeficiente de Rendimento</div>
-          <div style="margin-bottom:7px;">8.7</div>
+          <div style="margin-bottom:7px;">Sem Coeficiente</div>
           <div style="font-weight:500;">Data de Ingresso</div>
-          <div><b>01/02/2022</b></div>
+          <div><b>01/02/2024</b></div>
         </div>
       </div>
       <div class="card">

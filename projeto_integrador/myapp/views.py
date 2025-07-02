@@ -3,6 +3,15 @@ from django.http import HttpResponseRedirect, HttpResponseBadRequest, HttpRespon
 from .models import Aprovado, Cadastro
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from io import BytesIO
+from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import letter
+from datetime import datetime
+from reportlab.lib.colors import HexColor
+
+
+
+
 
 def index_view(request):
     return HttpResponseRedirect('/feed')
@@ -67,6 +76,76 @@ def validacao_view(request):
         return HttpResponseBadRequest()
     
     
+def download_comprovante_view(request):
+    cpf = request.session.get('cpf_validado')
+
+    if not cpf:
+        return redirect('/ValidacaoAluno')
+
+    try:
+        aprovado = Aprovado.objects.get(cpf=cpf)
+        cadastro = Cadastro.objects.get(aprovados=aprovado)
+
+        buffer = BytesIO()
+        p = canvas.Canvas(buffer, pagesize=letter)
+
+        # Cores do tema IFMT
+        verde_escuro = HexColor("#006400")
+        verde_medio = HexColor("#228B22")
+        verde_claro = HexColor("#E0F2E9")
+
+        # Título
+        p.setFont("Helvetica-Bold", 18)
+        p.setFillColor(verde_escuro)
+        p.drawString(100, 750, "COMPROVANTE DE MATRÍCULA")
+
+        # Linha separadora
+        p.setStrokeColor(verde_medio)
+        p.line(100, 735, 500, 735)
+
+        # Retângulo de fundo dos dados
+        p.setFillColor(verde_claro)
+        p.rect(90, 250, 420, 470, fill=True, stroke=False)
+
+        # Dados do aluno
+        p.setFillColorRGB(0, 0, 0)  # Cor do texto preta
+        p.setFont("Helvetica", 12)
+        y_position = 700
+
+        dados = [
+            f"Nome: {aprovado.name}",
+            f"CPF: {aprovado.cpf}",
+            f"Curso: {aprovado.curso}",
+            f"Matrícula: {cadastro.matricula}",
+            f"Email: {cadastro.email}",
+            f"Telefone: {cadastro.telefone}",
+            f"Escola: {cadastro.escola}",
+            f"Endereço: {cadastro.endereco}",
+            f"Cidade: {cadastro.cidade}",
+        ]
+
+        for dado in dados:
+            p.drawString(100, y_position, dado)
+            y_position -= 25
+
+        # Rodapé
+        p.setStrokeColor(verde_medio)
+        p.line(100, y_position - 20, 500, y_position - 20)
+        p.setFont("Helvetica-Oblique", 10)
+        p.setFillColor(verde_escuro)
+        p.drawString(100, y_position - 40, f"Documento gerado em: {datetime.now().strftime('%d/%m/%Y às %H:%M')}")
+
+        p.showPage()
+        p.save()
+        buffer.seek(0)
+
+        response = HttpResponse(buffer, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="comprovante_matricula_{cadastro.matricula}.pdf"'
+        return response
+
+    except (Aprovado.DoesNotExist, Cadastro.DoesNotExist):
+        return redirect('/ValidacaoAluno')
+    
 def cadastro_view(request):
     if request.method == 'GET':
         cpf_validado = request.session.get('cpf_validado')
@@ -82,18 +161,20 @@ def cadastro_view(request):
 
     elif request.method == 'POST':
         escola = request.POST.get("escola", "")
+        telefone = request.POST.get("telefone", "")
         email = request.POST.get("email", "")
         nascimento = request.POST.get("nascimento", "")
         endereco = request.POST.get("endereco", "")
         cidade = request.POST.get("cidade", "")
         arquivo = request.FILES.get('arquivo', None)
         cpf_validado = request.session.get('cpf_validado')
-
+        print(telefone)
     if escola and email and nascimento and endereco and cidade and arquivo and cpf_validado:
         try:
             aprovado = Aprovado.objects.get(cpf=cpf_validado)
             cadastro = Cadastro.objects.create(
                 escola=escola,
+                telefone=telefone,
                 email=email,
                 aprovados=aprovado,
                 nascimento=nascimento,
@@ -124,6 +205,8 @@ def CentralAluno_view(request):
 
         context = {
             "nome": aprovado.name,
+            "telefone": cadastro.telefone,
+            "matricula": cadastro.matricula,
             "cpf":aprovado.cpf,
             "curso": aprovado.curso,
             "email": cadastro.email,
@@ -140,6 +223,39 @@ def CentralAluno_view(request):
         return redirect('/ValidacaoAluno')  # fallback se algo estiver errado
 
 
+
+
+def editar_perfil_view(request):
+    cpf = request.session.get('cpf_validado')
+    
+    if not cpf:
+        return redirect('/ValidacaoAluno')
+    
+    try:
+        aprovado = Aprovado.objects.get(cpf=cpf)
+        cadastro = Cadastro.objects.get(aprovados=aprovado)
+        
+        if request.method == 'GET':
+            context = {
+                "cadastro": cadastro,
+                "aprovado": aprovado
+            }
+            return render(request, 'editar_perfil.html', context)
+        
+        elif request.method == 'POST':
+            # Atualizar apenas campos editáveis
+            cadastro.email = request.POST.get('email', cadastro.email)
+            cadastro.telefone = request.POST.get('telefone', cadastro.telefone)
+            cadastro.endereco = request.POST.get('endereco', cadastro.endereco)
+            cadastro.cidade = request.POST.get('cidade', cadastro.cidade)
+            cadastro.escola = request.POST.get('escola', cadastro.escola)
+            
+            cadastro.save()
+            
+            return redirect('/CentralAluno')
+            
+    except (Aprovado.DoesNotExist, Cadastro.DoesNotExist):
+        return redirect('/ValidacaoAluno')
 
 def ValidacaoAluno_view(request):
     if request.method == "GET":
